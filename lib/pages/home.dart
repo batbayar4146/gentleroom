@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
 import 'package:gentleroom/models/products.dart';
+import 'package:gentleroom/pages/product_details.dart';
 import 'package:gentleroom/repositories/main.dart';
 import 'package:gentleroom/services/loading.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -44,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 const Text(
                   "gentleroom",
-                  style: TextStyle(color: Colors.black, fontFamily: 'RenogareSoft'),
+                  style: TextStyle(color: Colors.black, fontFamily: 'RenogareSoft', fontSize: 16, letterSpacing: -0.5),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -92,38 +94,90 @@ class ContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.all(5),
-          height: 250,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage("https://www.gentleroom.mn/files/product/${file.photo.toString()}"),
-                fit: BoxFit.cover),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProductDetailsPage(product: file)),
+        );
+      },
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.topRight,
+            width: double.infinity,
+            margin: const EdgeInsets.all(5),
+            height: 250,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage("https://www.gentleroom.mn/files/product/${file.photo.toString()}"),
+                  fit: BoxFit.cover),
+            ),
+            child: Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(top: 10, right: 10),
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+              ),
+              child: Text(
+                "New",
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600, fontSize: 10, color: Colors.black, letterSpacing: 0),
+              ),
+            ),
           ),
-        ),
-        Text(
-          file.title.toString(),
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        Text("Single size - ${file.price1}"),
-        Text("Double size - ${file.price2}"),
-        Text("King size - ${file.price3}"),
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            file.title.toString().toLowerCase(),
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 14),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            "Single size - ${file.price1}",
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+          ),
+          const SizedBox(
+            height: 3,
+          ),
+          Text(
+            "Double size - ${file.price2}",
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+          ),
+          const SizedBox(
+            height: 3,
+          ),
+          Text(
+            "King size - ${file.price3}",
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
     );
   }
 }
 
 class MySearch extends SearchDelegate {
-  // this is manual list of query for suggesting user.
-  List<String> data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+  Future<List<Products>?> data = MainRepository().getList().then((value) {
+    return value.products;
+  });
+
   @override
   List<Widget>? buildActions(BuildContext context) => [
         IconButton(
           icon: const Icon(
             Icons.clear,
-            color: Colors.red,
+            color: Colors.black,
+            size: 16,
           ),
           onPressed: () {
             if (query.isEmpty) {
@@ -136,7 +190,10 @@ class MySearch extends SearchDelegate {
       ];
   @override
   Widget? buildLeading(BuildContext context) => IconButton(
-        icon: const Icon(Icons.arrow_back),
+        icon: const Icon(
+          Icons.arrow_back,
+          size: 16,
+        ),
         onPressed: () {
           close(context, null);
         },
@@ -149,23 +206,27 @@ class MySearch extends SearchDelegate {
       );
   @override
   Widget buildSuggestions(BuildContext context) {
-    // will show a query hint suggestion "flutter search bar with listview"
-    List<String> suggesstions = data.where((element) {
-      final result = element.toLowerCase();
-      final input = query.toLowerCase();
-      return result.contains(input);
-    }).toList();
-    return ListView.builder(
-        itemCount: suggesstions.length,
-        itemBuilder: (context, index) {
-          final suggestion = suggesstions[index];
-          return ListTile(
-            title: Text(suggestion),
-            onTap: () {
-              query = suggestion;
-              showResults(context);
-            },
-          );
-        });
+    // List<Products>? urdun;
+    // data.then((value) {
+    //   urdun = value;
+    // });
+    // List<Products> suggesstions = urdun!.where((element) {
+    //   final result = element.title.toString().toLowerCase();
+    //   final input = query.toLowerCase();
+    //   return result.contains(input);
+    // }).toList();
+    return Container();
+    // return ListView.builder(
+    //     itemCount: suggesstions.length,
+    //     itemBuilder: (context, index) {
+    //       final suggestion = suggesstions[index];
+    //       return ListTile(
+    //         title: Text(suggestion.title.toString()),
+    //         onTap: () {
+    //           query = suggestion.title.toString();
+    //           showResults(context);
+    //         },
+    //       );
+    //     });
   }
 }

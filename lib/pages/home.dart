@@ -46,7 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 const Text(
                   "gentleroom",
-                  style: TextStyle(color: Colors.black, fontFamily: 'RenogareSoft', fontSize: 16, letterSpacing: -0.5),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'RenogareSoft',
+                      fontSize: 16,
+                      letterSpacing: -0.5),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -54,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Image.asset(
                     "assets/images/loupe.png",
-                    height: 14,
+                    height: 16,
                   ),
                 )
               ],
@@ -96,10 +100,11 @@ class ContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProductDetailsPage(product: file)),
-        );
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductDetailsPage(product: file)),
+            (Route<dynamic> route) => false);
       },
       child: Column(
         children: [
@@ -110,7 +115,8 @@ class ContentWidget extends StatelessWidget {
             height: 250,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage("https://www.gentleroom.mn/files/product/${file.photo.toString()}"),
+                  image: NetworkImage(
+                      "https://www.gentleroom.mn/files/product/${file.photo.toString()}"),
                   fit: BoxFit.cover),
             ),
             child: Container(
@@ -125,7 +131,10 @@ class ContentWidget extends StatelessWidget {
               child: Text(
                 "New",
                 style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w600, fontSize: 10, color: Colors.black, letterSpacing: 0),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 10,
+                    color: Colors.black,
+                    letterSpacing: 0),
               ),
             ),
           ),
@@ -134,28 +143,32 @@ class ContentWidget extends StatelessWidget {
           ),
           Text(
             file.title.toString().toLowerCase(),
-            style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 14),
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 12),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
             "Single size - ${file.price1}",
-            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
           ),
           const SizedBox(
             height: 3,
           ),
           Text(
             "Double size - ${file.price2}",
-            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
           ),
           const SizedBox(
             height: 3,
           ),
           Text(
             "King size - ${file.price3}",
-            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
           ),
           const SizedBox(
             height: 10,

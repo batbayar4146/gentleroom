@@ -11,7 +11,8 @@ class MainList with _$MainList {
     List<Products>? products,
   ) = _MainList;
 
-  factory MainList.fromJson(Map<String, dynamic> json) => _$MainListFromJson(json);
+  factory MainList.fromJson(Map<String, dynamic> json) =>
+      _$MainListFromJson(json);
 }
 
 @freezed
@@ -30,7 +31,20 @@ class Products with _$Products {
     String? sold,
     String? shine,
     String? soon,
+    List<Photos>? photos,
   ) = _Products;
 
-  factory Products.fromJson(Map<String, dynamic> json) => _$ProductsFromJson(json);
+  factory Products.fromJson(Map<String, dynamic> json) =>
+      _$ProductsFromJson(json);
+}
+
+@freezed
+class Photos with _$Photos {
+  factory Photos(
+    String? id,
+    String? pid,
+    String? photo,
+  ) = _Photos;
+
+  factory Photos.fromJson(Map<String, dynamic> json) => _$PhotosFromJson(json);
 }

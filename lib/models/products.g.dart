@@ -35,6 +35,9 @@ _$_Products _$$_ProductsFromJson(Map<String, dynamic> json) => _$_Products(
       json['sold'] as String?,
       json['shine'] as String?,
       json['soon'] as String?,
+      (json['photos'] as List<dynamic>?)
+          ?.map((e) => Photos.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_ProductsToJson(_$_Products instance) =>
@@ -52,4 +55,17 @@ Map<String, dynamic> _$$_ProductsToJson(_$_Products instance) =>
       'sold': instance.sold,
       'shine': instance.shine,
       'soon': instance.soon,
+      'photos': instance.photos,
+    };
+
+_$_Photos _$$_PhotosFromJson(Map<String, dynamic> json) => _$_Photos(
+      json['id'] as String?,
+      json['pid'] as String?,
+      json['photo'] as String?,
+    );
+
+Map<String, dynamic> _$$_PhotosToJson(_$_Photos instance) => <String, dynamic>{
+      'id': instance.id,
+      'pid': instance.pid,
+      'photo': instance.photo,
     };

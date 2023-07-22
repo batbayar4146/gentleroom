@@ -46,11 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 const Text(
                   "gentleroom",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'RenogareSoft',
-                      fontSize: 16,
-                      letterSpacing: -0.5),
+                  style: TextStyle(color: Colors.black, fontFamily: 'RenogareSoft', fontSize: 16, letterSpacing: -0.5),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -102,8 +98,7 @@ class ContentWidget extends StatelessWidget {
       onTap: () {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(
-                builder: (context) => ProductDetailsPage(product: file)),
+            MaterialPageRoute(builder: (context) => ProductDetailsPage(product: file)),
             (Route<dynamic> route) => false);
       },
       child: Column(
@@ -115,60 +110,70 @@ class ContentWidget extends StatelessWidget {
             height: 250,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(
-                      "https://www.gentleroom.mn/files/product/${file.photo.toString()}"),
+                  image: NetworkImage("https://www.gentleroom.mn/files/product/${file.photo.toString()}"),
                   fit: BoxFit.cover),
             ),
-            child: Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(top: 10, right: 10),
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-              ),
-              child: Text(
-                "New",
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 10,
-                    color: Colors.black,
-                    letterSpacing: 0),
-              ),
-            ),
+            child: file.shine == "1"
+                ? Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(top: 10, right: 10),
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                    ),
+                    child: Text(
+                      "New",
+                      style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w600, fontSize: 10, color: Colors.black, letterSpacing: -0.5),
+                    ),
+                  )
+                : file.sale == "1"
+                    ? Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 10, right: 10),
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                        ),
+                        child: Text(
+                          "-20",
+                          style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w600, fontSize: 10, color: Colors.black, letterSpacing: -0.5),
+                        ),
+                      )
+                    : Container(),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
             file.title.toString().toLowerCase(),
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 12),
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, letterSpacing: -0.5, fontSize: 12),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
             "Single size - ${file.price1}",
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: -0.5, fontSize: 12),
           ),
           const SizedBox(
             height: 3,
           ),
           Text(
             "Double size - ${file.price2}",
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: -0.5, fontSize: 12),
           ),
           const SizedBox(
             height: 3,
           ),
           Text(
             "King size - ${file.price3}",
-            style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w300, letterSpacing: 0, fontSize: 12),
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w300, letterSpacing: -0.5, fontSize: 12),
           ),
           const SizedBox(
             height: 10,

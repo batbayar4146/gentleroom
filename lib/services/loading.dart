@@ -12,7 +12,7 @@ class Loading extends StatelessWidget {
       width: double.infinity,
       child: Container(
         alignment: Alignment.center,
-        child: const SpinKitCircle(
+        child: const SpinKitFadingFour(
           color: Colors.black,
           size: 50.0,
         ),

@@ -4,6 +4,8 @@ import 'package:gentleroom/services/custom_exception.dart';
 class HttpHelper {
   Future<dynamic> getUrl({String? url}) async {
     var dio = _createDio();
+    dio.options.headers['content-Type'] = 'application/json; charset=utf-8';
+    dio.options.headers['Access-Control-Allow-Origin'] = "*";
     try {
       var response = await dio.get(url!);
       return response.data;
@@ -18,6 +20,8 @@ class HttpHelper {
 
   Future<dynamic> postUrl({String? url, dynamic body, String? token}) async {
     var dio = _createDio();
+    dio.options.headers['content-Type'] = 'application/json; charset=utf-8';
+    dio.options.headers['Access-Control-Allow-Origin'] = "*";
     try {
       var response = await dio.post(url!, data: body);
 
@@ -59,7 +63,7 @@ class HttpHelper {
     var dio = Dio();
     dio.options.baseUrl = 'https://www.gentleroom.mn/api/';
     dio.options.headers['content-Type'] = 'application/json; charset=utf-8';
-    dio.options.headers['Access-Control-Allow-Origin'] = true;
+    dio.options.headers['Access-Control-Allow-Origin'] = "*";
     dio.options.connectTimeout = const Duration(seconds: 300);
     dio.options.receiveTimeout = const Duration(seconds: 300);
 
